@@ -1,0 +1,43 @@
+{
+  "name": "aminnovap",
+  "version": "1.1.0",
+  "private": true,
+  "description": "AMINNOVA — Persian RTL subscription panel and VLESS over WebSocket gateway for Cloudflare Workers, with Durable Objects, endpoint probes, multi-format configs and seller controls.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "npm run build:public && npm run check",
+    "predeploy": "npm run build:public",
+    "check": "npm run check:ts && npm run check:ui",
+    "check:ts": "tsc --noEmit",
+    "check:ui": "node scripts/check-ui.mjs",
+    "build:public": "node scripts/build-public.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "cloudflare": {
+    "bindings": {
+      "ADMIN_PASSWORD": {
+        "description": "رمز ورود مالک پنل AMINNOVA (نام کاربری AMINCK)؛ حداقل ۱۰ کاراکتر. این مقدار به‌صورت Secret رمزگذاری می‌شود."
+      }
+    }
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^5.20260817.1",
+    "wrangler": "^4.123.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "miniflare": "^4.20260730.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "undici": "7.29.0"
+  }
+}
